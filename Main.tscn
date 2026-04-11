@@ -1,0 +1,55 @@
+[gd_scene format=3 uid="uid://t0umw6cc2lrl"]
+
+[ext_resource type="Script" uid="uid://dma2gqyhnkfee" path="res://main.gd" id="1_glv2v"]
+
+[node name="Main menu" type="Control" unique_id=1562080317]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_glv2v")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=243467760]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ColorRect" unique_id=540621499]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -253.75
+offset_top = -253.0
+offset_right = 253.75
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="ColorRect/VBoxContainer" unique_id=925871728]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0.003921569, 0.46666667, 1)
+theme_override_font_sizes/font_size = 48
+text = "SHIMMER"
+horizontal_alignment = 1
+
+[node name="start" type="Button" parent="ColorRect/VBoxContainer" unique_id=1085845238]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "START"
+
+[node name="quit" type="Button" parent="ColorRect/VBoxContainer" unique_id=1788796059]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "QUIT"
+
+[connection signal="pressed" from="ColorRect/VBoxContainer/start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="ColorRect/VBoxContainer/quit" to="." method="_on_quit_pressed"]
