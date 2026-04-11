@@ -1,5 +1,7 @@
 class_name Shimmer extends CharacterBody3D
 
+signal reached_trapper
+
 @export var capture_distance: float
 @export var particles: GPUParticles3D
 @export var particle_strength: float = 10
@@ -42,6 +44,8 @@ func trap_to(target: Node3D) -> void:
 func _physics_process(delta: float) -> void:
 	if trapper != null:
 		global_position = global_position.lerp(trapper.global_position, delta * 0.35)
+		if global_position.is_equal_approx(trapper.global_position):
+			reached_trapper.emit()
 		return # We only wanna interpolate here
 	
 	# Get the input direction and handle the movement/deceleration.

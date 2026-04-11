@@ -6,6 +6,43 @@
 [ext_resource type="PackedScene" uid="uid://b41hth24u70h2" path="res://camera/camera.tscn" id="3_y5kgl"]
 [ext_resource type="PackedScene" uid="uid://cgq0ocpl13ts" path="res://souls/last_soul.tscn" id="4_1fa6l"]
 
+[sub_resource type="Animation" id="Animation_igkch"]
+resource_name = "Ending"
+length = 10.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/VBoxContainer/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(9, 10),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_8qo6o"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/VBoxContainer/Label:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8qo6o"]
+_data = {
+&"Ending": SubResource("Animation_igkch"),
+&"RESET": SubResource("Animation_8qo6o")
+}
+
 [sub_resource type="Environment" id="Environment_e2o6t"]
 background_mode = 2
 tonemap_mode = 2
@@ -17,10 +54,14 @@ volumetric_fog_albedo = Color(0, 0, 0, 1)
 height = 1.0
 radius = 3.0
 
-[node name="Game" type="Node3D" unique_id=1715666785 node_paths=PackedStringArray("center_hitbox", "blackhole_box")]
+[node name="Game" type="Node3D" unique_id=1715666785 node_paths=PackedStringArray("center_hitbox", "blackhole_box", "animator")]
 script = ExtResource("1_y5kgl")
 center_hitbox = NodePath("Area3D")
 blackhole_box = NodePath("BlackHolePoint")
+animator = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=671785485]
+libraries/ = SubResource("AnimationLibrary_8qo6o")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1382213892]
 environment = SubResource("Environment_e2o6t")
@@ -53,7 +94,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9, 0, 4)
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, -35, 0)
 
 [node name="Area3D" type="Area3D" parent="." unique_id=250520109]
-monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=984892321]
 shape = SubResource("CylinderShape3D_y5kgl")
@@ -61,4 +101,37 @@ shape = SubResource("CylinderShape3D_y5kgl")
 [node name="BlackHolePoint" type="Node3D" parent="." unique_id=101921437]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -21, 18)
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=306304584]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1050957832]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Spacer" type="Control" parent="CanvasLayer/VBoxContainer" unique_id=1572785760]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1812941663]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 2
+size_flags_vertical = 6
+theme_override_font_sizes/font_size = 128
+text = "SHIMMER"
+horizontal_alignment = 1
+
+[node name="Spacer2" type="Control" parent="CanvasLayer/VBoxContainer" unique_id=798565397]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Spacer3" type="Control" parent="CanvasLayer/VBoxContainer" unique_id=1875900752]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[connection signal="reached_trapper" from="Shimmer" to="." method="_on_shimmer_reached_trapper"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]
