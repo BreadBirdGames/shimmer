@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://cgq0ocpl13ts"]
+
+[ext_resource type="Shader" uid="uid://rjsu38kjwbf8" path="res://souls/last_soul.gdshader" id="1_scmiv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_jktbj"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_jktbj"]
+radius = 25.0
+height = 10.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_scmiv"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kuyda"]
+width = 128
+height = 128
+noise = SubResource("FastNoiseLite_scmiv")
+seamless = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_scmiv"]
+render_priority = 0
+shader = ExtResource("1_scmiv")
+shader_parameter/radius = 0.0
+shader_parameter/noise = SubResource("NoiseTexture2D_kuyda")
+shader_parameter/spin = 0.4
+shader_parameter/shadow_asymmetry = 0.5
+shader_parameter/shadow_oblateness = 0.5
+shader_parameter/frame_drag_strength = 0.5
+shader_parameter/doppler_beaming = 0.5
+shader_parameter/warp_falloff = 2.5
+shader_parameter/warp_strength = 1.0
+shader_parameter/warp_inner_edge = 0.3
+shader_parameter/color_core = Color(0.88, 0.96, 1, 1)
+shader_parameter/brightness_core = 22.0
+shader_parameter/color_hot = Color(0.2, 0.6, 1, 1)
+shader_parameter/brightness_hot = 10.0
+shader_parameter/color_mid = Color(0.05, 0.35, 1, 1)
+shader_parameter/brightness_mid = 6.5
+shader_parameter/color_cool = Color(0.1, 0.45, 0.95, 1)
+shader_parameter/brightness_cool = 4.0
+shader_parameter/color_outer = Color(0.95, 0.55, 0.15, 1)
+shader_parameter/brightness_outer = 2.2
+shader_parameter/color_edge = Color(0.7, 0.08, 0.02, 1)
+shader_parameter/brightness_edge = 1.1
+shader_parameter/gradient_stop0 = 0.08
+shader_parameter/gradient_stop1 = 0.25
+shader_parameter/gradient_stop2 = 0.55
+shader_parameter/gradient_stop3 = 0.8
+shader_parameter/color_saturation = 1.5
+shader_parameter/grav_redshift_strength = 0.85
+shader_parameter/turbulence_strength = 0.28
+shader_parameter/turbulence_scale = 2.5
+shader_parameter/turbulence_speed = 0.35
+shader_parameter/density_heat_strength = 0.55
+shader_parameter/density_heat_power = 0.3
+shader_parameter/rs = 0.7
+
+[node name="LastSoul" type="StaticBody3D" unique_id=1730216618]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=223938663]
+shape = SubResource("SphereShape3D_jktbj")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=409788656]
+mesh = SubResource("SphereMesh_jktbj")
+surface_material_override/0 = SubResource("ShaderMaterial_scmiv")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="." unique_id=2039756660]
+mesh = SubResource("SphereMesh_jktbj")
+surface_material_override/0 = SubResource("ShaderMaterial_scmiv")
+
+[node name="GPUParticlesAttractorSphere3D" type="GPUParticlesAttractorSphere3D" parent="." unique_id=1021607831]
+transform = Transform3D(-4.371139e-08, 1, 0, 4.371139e-08, 1.9106855e-15, 1, 1, 4.371139e-08, -4.371139e-08, 0, 0, 0)
+strength = 100.0
+attenuation = 0.2871746
+radius = 1.5
+
+[node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="." unique_id=399872950]
+radius = 0.75

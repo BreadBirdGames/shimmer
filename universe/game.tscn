@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bo35uqlt2yc64" path="res://player/shimmer.tscn" id="2_1fa6l"]
 [ext_resource type="PackedScene" uid="uid://cs37n8g3l5tyt" path="res://souls/soul.tscn" id="3_apdja"]
 [ext_resource type="PackedScene" uid="uid://b41hth24u70h2" path="res://camera/camera.tscn" id="3_y5kgl"]
+[ext_resource type="PackedScene" uid="uid://cgq0ocpl13ts" path="res://souls/last_soul.tscn" id="4_1fa6l"]
 
 [sub_resource type="Environment" id="Environment_e2o6t"]
 background_mode = 2
@@ -42,3 +43,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 14)
 
 [node name="Soul5" parent="Souls" unique_id=1553522974 instance=ExtResource("3_apdja")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, -4)
+
+[node name="LastSoul" parent="." unique_id=1730216618 instance=ExtResource("4_1fa6l")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -25, 0)

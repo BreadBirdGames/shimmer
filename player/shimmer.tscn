@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://drvd4l373blce" path="res://player/shimmer.gd" id="1_hpjkr"]
 [ext_resource type="Texture2D" uid="uid://bhf828ukpvo7b" path="res://sprites/particle.png" id="2_3ben2"]
+[ext_resource type="ArrayMesh" uid="uid://bfke51hlxjd5o" path="res://sprites/player character_1.obj" id="3_qx362"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pjqsp"]
 
@@ -35,18 +36,24 @@ billboard_mode = 1
 material = SubResource("StandardMaterial3D_gfqqj")
 size = Vector2(0.25, 0.25)
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uolsq"]
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 16.0
+
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1720943480 node_paths=PackedStringArray("particles", "mesh")]
 script = ExtResource("1_hpjkr")
 capture_distance = 3.5
 particles = NodePath("GPUParticles3D")
 max_particle_size = 0.5
-mesh = NodePath("MeshInstance3D")
+mesh = NodePath("PlayerCharacter1")
 max_energy = 100.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1155193798]
 shape = SubResource("SphereShape3D_pjqsp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2081919426]
+visible = false
 mesh = SubResource("SphereMesh_3ben2")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1653837333]
@@ -54,3 +61,9 @@ amount = 25
 lifetime = 2.5
 process_material = SubResource("ParticleProcessMaterial_3ben2")
 draw_pass_1 = SubResource("QuadMesh_gfqqj")
+
+[node name="PlayerCharacter1" type="MeshInstance3D" parent="." unique_id=1597961837]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, -0.75, 0)
+mesh = ExtResource("3_qx362")
+surface_material_override/0 = SubResource("StandardMaterial3D_uolsq")
+surface_material_override/1 = SubResource("StandardMaterial3D_uolsq")

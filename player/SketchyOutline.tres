@@ -1,0 +1,28 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://b4gt635hh6evi"]
+
+[ext_resource type="Shader" uid="uid://cey276pjtsjid" path="res://player/sketchy_outline.gdshader" id="1"]
+
+[sub_resource type="Curve" id="7"]
+_data = [Vector2(0.119048, 0), 0.0, 0.0, 0, 0, Vector2(0.738095, 0.990909), 0.0, 0.0, 0, 0, Vector2(1, 0.0727272), -0.968461, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="8"]
+curve = SubResource("7")
+
+[sub_resource type="FastNoiseLite" id="9"]
+
+[sub_resource type="NoiseTexture2D" id="10"]
+noise = SubResource("9")
+seamless = true
+
+[resource]
+render_priority = 127
+shader = ExtResource("1")
+shader_parameter/outline_noise_tex = SubResource("10")
+shader_parameter/outline_color = Color(0.97969264, 0.97969264, 6.160736e-06, 1)
+shader_parameter/scissor_value = 0.5
+shader_parameter/uv_scale = Vector2(1, 1.221)
+shader_parameter/falloff_curve = SubResource("8")
+shader_parameter/outline_size = 0.425
+shader_parameter/offset_fres = 6.487
+shader_parameter/fps = 5.0

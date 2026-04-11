@@ -29,7 +29,7 @@ var energy: float = 100 :
 func _ready() -> void:
 	particle_material = particles.process_material as ParticleProcessMaterial
 	particle_mesh = particles.draw_pass_1 as QuadMesh
-	material = mesh.mesh.surface_get_material(0)
+	material = mesh.get_surface_override_material(0)
 	
 	energy = energy # To update progress!
 
@@ -38,7 +38,14 @@ func _physics_process(delta: float) -> void:
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
 	if direction:
+		mesh.rotation.y = rotate_toward(
+			mesh.rotation.y,
+			Vector2(direction.x, -direction.z).angle() + deg_to_rad(90),
+			delta * 8
+		)
+		
 		velocity.x = direction.x * SPEED
 		velocity.z = direction.z * SPEED
 	else:

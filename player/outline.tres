@@ -1,0 +1,6 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://b06f1cynoft32"]
+
+[ext_resource type="Material" uid="uid://b4gt635hh6evi" path="res://player/SketchyOutline.tres" id="1_lnx30"]
+
+[resource]
+next_pass = ExtResource("1_lnx30")
