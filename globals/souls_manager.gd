@@ -3,6 +3,7 @@ extends Node
 var souls: Array[Soul]
 
 func print_souls():
+	return
 	for soul: Soul in souls:
 		print(soul)
 		print(soul.global_position)
@@ -18,6 +19,21 @@ func get_closest_soul(target_pos: Vector3) -> Soul:
 	var shortest_distance: float = INF
 	
 	for soul: Soul in souls:
+		var distance = target_pos.distance_to(soul.global_position)
+		if distance < shortest_distance:
+			shortest_distance = distance
+			shortest_soul = soul
+	
+	return shortest_soul
+
+func get_closest_valid_soul(target_pos: Vector3) -> Soul:
+	var shortest_soul: Soul = null
+	var shortest_distance: float = INF
+	
+	for soul: Soul in souls:
+		if !soul.can_suck():
+			continue
+		
 		var distance = target_pos.distance_to(soul.global_position)
 		if distance < shortest_distance:
 			shortest_distance = distance

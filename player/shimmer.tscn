@@ -5,7 +5,13 @@
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pjqsp"]
 
-[sub_resource type="SphereMesh" id="SphereMesh_pjqsp"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1epsl"]
+transparency = 1
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_3ben2"]
+material = SubResource("StandardMaterial3D_1epsl")
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ben2"]
 emission_shape = 2
@@ -29,54 +35,22 @@ billboard_mode = 1
 material = SubResource("StandardMaterial3D_gfqqj")
 size = Vector2(0.25, 0.25)
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1720943480 node_paths=PackedStringArray("label", "energyBar", "particles")]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1720943480 node_paths=PackedStringArray("particles", "mesh")]
 script = ExtResource("1_hpjkr")
-label = NodePath("VBoxContainer/HBoxContainer/Label")
-energyBar = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/ProgressBar")
-capture_distance = 2.0
+capture_distance = 3.5
 particles = NodePath("GPUParticles3D")
+max_particle_size = 0.5
+mesh = NodePath("MeshInstance3D")
+max_energy = 100.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1155193798]
 shape = SubResource("SphereShape3D_pjqsp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2081919426]
-mesh = SubResource("SphereMesh_pjqsp")
+mesh = SubResource("SphereMesh_3ben2")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1653837333]
 amount = 25
 lifetime = 2.5
 process_material = SubResource("ParticleProcessMaterial_3ben2")
 draw_pass_1 = SubResource("QuadMesh_gfqqj")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1152658634]
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1261483320]
-layout_mode = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1262779281]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1854304693]
-layout_mode = 2
-text = "Energy (debug)"
-
-[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2064774253]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Spacer" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=1138889872]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=947798435]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_font_sizes/font_size = 32
-text = "Press E to shimmer"
-horizontal_alignment = 1
