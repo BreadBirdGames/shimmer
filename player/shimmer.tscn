@@ -1,22 +1,51 @@
 [gd_scene format=3 uid="uid://bo35uqlt2yc64"]
 
 [ext_resource type="Script" uid="uid://drvd4l373blce" path="res://player/shimmer.gd" id="1_hpjkr"]
+[ext_resource type="Texture2D" uid="uid://bhf828ukpvo7b" path="res://sprites/particle.png" id="2_3ben2"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_pjqsp"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_pjqsp"]
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1720943480 node_paths=PackedStringArray("label", "energyBar")]
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_3ben2"]
+emission_shape = 2
+emission_sphere_radius = 0.5
+spread = 15.0
+initial_velocity_min = 5.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, 0, 0)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gfqqj"]
+transparency = 1
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("2_3ben2")
+emission_enabled = true
+emission = Color(1, 1, 1, 1)
+emission_energy_multiplier = 16.0
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_gfqqj"]
+material = SubResource("StandardMaterial3D_gfqqj")
+size = Vector2(0.25, 0.25)
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1720943480 node_paths=PackedStringArray("label", "energyBar", "particles")]
 script = ExtResource("1_hpjkr")
 label = NodePath("VBoxContainer/HBoxContainer/Label")
 energyBar = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/ProgressBar")
 capture_distance = 2.0
+particles = NodePath("GPUParticles3D")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1155193798]
 shape = SubResource("SphereShape3D_pjqsp")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2081919426]
 mesh = SubResource("SphereMesh_pjqsp")
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1653837333]
+amount = 25
+lifetime = 2.5
+process_material = SubResource("ParticleProcessMaterial_3ben2")
+draw_pass_1 = SubResource("QuadMesh_gfqqj")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1152658634]
 anchors_preset = 15

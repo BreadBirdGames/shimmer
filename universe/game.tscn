@@ -29,25 +29,16 @@ transform = Transform3D(1, 0, 0, 0, 0.054078843, 0.99853665, 0, -0.99853665, 0.0
 [node name="Souls" type="Node3D" parent="." unique_id=1963288317]
 
 [node name="Soul" parent="Souls" unique_id=68226887 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0, -3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -16)
 
 [node name="Soul2" parent="Souls" unique_id=455303822 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, -4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -13)
 
 [node name="Soul3" parent="Souls" unique_id=403129838 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3, 0, 3)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 13, 0, 7)
 
 [node name="Soul4" parent="Souls" unique_id=295933348 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, 6)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 0, 14)
 
 [node name="Soul5" parent="Souls" unique_id=1553522974 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 0, 0)
-
-[node name="Soul6" parent="Souls" unique_id=2015825756 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6)
-
-[node name="Soul7" parent="Souls" unique_id=50680587 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4, 0, 0)
-
-[node name="Soul8" parent="Souls" unique_id=915740485 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -21, 0, -4)
