@@ -1,0 +1,52 @@
+[gd_scene format=3 uid="uid://bo35uqlt2yc64"]
+
+[ext_resource type="Script" uid="uid://drvd4l373blce" path="res://player/shimmer.gd" id="1_hpjkr"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_pjqsp"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_pjqsp"]
+
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1720943480 node_paths=PackedStringArray("label", "energyBar")]
+script = ExtResource("1_hpjkr")
+label = NodePath("VBoxContainer/HBoxContainer/Label")
+energyBar = NodePath("VBoxContainer/HBoxContainer/VBoxContainer/ProgressBar")
+capture_distance = 2.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1155193798]
+shape = SubResource("SphereShape3D_pjqsp")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=2081919426]
+mesh = SubResource("SphereMesh_pjqsp")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1152658634]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer" unique_id=1261483320]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer" unique_id=1262779281]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1854304693]
+layout_mode = 2
+text = "Energy (debug)"
+
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/HBoxContainer/VBoxContainer" unique_id=2064774253]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Spacer" type="Control" parent="VBoxContainer/HBoxContainer" unique_id=1138889872]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer" unique_id=947798435]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 32
+text = "Press E to shimmer"
+horizontal_alignment = 1

@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://cs37n8g3l5tyt"]
+
+[ext_resource type="Script" uid="uid://bfttq6h7pakqe" path="res://souls/soul.gd" id="1_1epsl"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_irpvy"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1epsl"]
+transparency = 1
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_1epsl"]
+material = SubResource("StandardMaterial3D_1epsl")
+
+[node name="Soul" type="StaticBody3D" unique_id=455303822 node_paths=PackedStringArray("mesh")]
+script = ExtResource("1_1epsl")
+mesh = NodePath("MeshInstance3D")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1751181807]
+shape = SubResource("SphereShape3D_irpvy")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=574950267]
+mesh = SubResource("SphereMesh_1epsl")
