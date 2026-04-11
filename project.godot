@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="shimmer"
-run/main_scene="uid://bjeo5up44f5og"
+run/main_scene="uid://5hsr4mp88xrt"
 config/features=PackedStringArray("4.6")
 config/icon="res://icon.svg"
 

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://5hsr4mp88xrt"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_glv2v"]
+[ext_resource type="VideoStream" uid="uid://c4xkv8p7y3ufn" path="res://video/Dream.ogv" id="2_uu6xs"]
 
 [node name="Main menu" type="Control" unique_id=1562080317]
 layout_mode = 3
@@ -13,13 +14,22 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_glv2v")
 
-[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="." unique_id=787458174]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="." unique_id=175288324]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+ratio = 1.7778
+stretch_mode = 1
+
+[node name="VideoStreamPlayer" type="VideoStreamPlayer" parent="AspectRatioContainer" unique_id=787458174]
+layout_mode = 2
+stream = ExtResource("2_uu6xs")
+autoplay = true
+expand = true
+loop = true
 
 [node name="CenterContainer" type="CenterContainer" parent="." unique_id=1259427981]
 layout_mode = 1
