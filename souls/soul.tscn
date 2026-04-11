@@ -22,4 +22,10 @@ shape = SubResource("SphereShape3D_irpvy")
 mesh = SubResource("SphereMesh_1epsl")
 
 [node name="GPUParticlesAttractorSphere3D" type="GPUParticlesAttractorSphere3D" parent="." unique_id=644880137]
+transform = Transform3D(-4.371139e-08, 1, 0, 4.371139e-08, 1.9106855e-15, 1, 1, 4.371139e-08, -4.371139e-08, 0, 0, 0)
 strength = 100.0
+attenuation = 0.2871746
+radius = 1.5
+
+[node name="GPUParticlesCollisionSphere3D" type="GPUParticlesCollisionSphere3D" parent="." unique_id=488062795]
+radius = 0.75
