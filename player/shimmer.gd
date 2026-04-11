@@ -26,6 +26,8 @@ var energy: float = 100 :
 		material.emission_energy_multiplier = energy/max_energy * emission_strength
 		_energy = value
 
+var trapper: Node3D = null
+
 func _ready() -> void:
 	particle_material = particles.process_material as ParticleProcessMaterial
 	particle_mesh = particles.draw_pass_1 as QuadMesh
@@ -33,7 +35,15 @@ func _ready() -> void:
 	
 	energy = energy # To update progress!
 
+func trap_to(target: Node3D) -> void:
+	trapper = target
+	print(trapper)
+
 func _physics_process(delta: float) -> void:
+	if trapper != null:
+		global_position = global_position.lerp(trapper.global_position, delta * 0.35)
+		return # We only wanna interpolate here
+	
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
@@ -58,28 +68,26 @@ func _physics_process(delta: float) -> void:
 		particles.emitting = true
 		
 		var soul := SoulsManager.get_closest_valid_soul(global_position)
-		if soul == null:
-			particle_material.direction = Vector3.UP
-			energy -= 0.01
-			return
-		
-		var soul_pos = soul.global_position
 		
 		var has_sucked: bool = false
 		
-		if soul.can_suck():
-			var soul_dist: float = global_position.distance_to(soul_pos)
-			if soul_dist < capture_distance:
-				# Emit!
-				soul.suck(0.05)
-				energy -= 0.05
-				has_sucked = true
-			particle_mesh.size = Vector2.ONE * clampf(max_particle_size - (soul_dist / capture_distance) * (max_particle_size - min_particle_size), min_particle_size, max_particle_size)
+		var soul_pos: Vector3
+		if soul == null:
+			soul_pos = Vector3.ZERO
 		else:
-			particle_mesh.size = Vector2.ONE * min_particle_size
+			soul_pos = soul.global_position
+			if soul.can_suck():
+				var soul_dist: float = global_position.distance_to(soul_pos)
+				if soul_dist < capture_distance:
+					# Emit!
+					soul.suck(0.05)
+					energy -= 0.05
+					has_sucked = true
+				particle_mesh.size = Vector2.ONE * clampf(max_particle_size - (soul_dist / capture_distance) * (max_particle_size - min_particle_size), min_particle_size, max_particle_size)
 		
 		if !has_sucked:
 			energy -= 0.01
+			particle_mesh.size = Vector2.ONE * min_particle_size
 		
 		particle_material.direction = (soul_pos - global_position).normalized() * particle_strength	 
 	else:

@@ -18,3 +18,6 @@ func can_suck() -> bool:
 func suck(amount: float) -> void:
 	energy += amount
 	material.emission_energy_multiplier = energy/max_energy * emission_strength
+	
+	if energy >= max_energy:
+		SoulsManager.register_finished(self)
