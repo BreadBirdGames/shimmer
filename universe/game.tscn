@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://btpg85mwjn3it" path="res://universe/game.gd" id="1_y5kgl"]
 [ext_resource type="PackedScene" uid="uid://bo35uqlt2yc64" path="res://player/shimmer.tscn" id="2_1fa6l"]
 [ext_resource type="PackedScene" uid="uid://cs37n8g3l5tyt" path="res://souls/soul.tscn" id="3_apdja"]
-[ext_resource type="PackedScene" uid="uid://b41hth24u70h2" path="res://camera/camera.tscn" id="3_y5kgl"]
 [ext_resource type="PackedScene" uid="uid://cgq0ocpl13ts" path="res://souls/last_soul.tscn" id="4_1fa6l"]
 
 [sub_resource type="Animation" id="Animation_igkch"]
@@ -99,11 +98,6 @@ size_flags_vertical = 3
 environment = SubResource("Environment_e2o6t")
 
 [node name="Shimmer" parent="." unique_id=1720943480 instance=ExtResource("2_1fa6l")]
-
-[node name="CameraPivot" parent="." unique_id=2071663273 node_paths=PackedStringArray("target") instance=ExtResource("3_y5kgl")]
-target = NodePath("../Shimmer")
-speed = 5.0
-processing_mode = 1
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1885484957]
 transform = Transform3D(1, 0, 0, 0, 0.054078843, 0.99853665, 0, -0.99853665, 0.054078843, 0, 0, 0)

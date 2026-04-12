@@ -34,36 +34,52 @@ emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 16.0
 
-[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1720943480 node_paths=PackedStringArray("particles", "mesh", "pivot", "light_mesh")]
+[node name="CharacterBody3D" type="CharacterBody3D" unique_id=1720943480 node_paths=PackedStringArray("particles", "mesh", "pivot", "player", "light_mesh")]
 script = ExtResource("1_hpjkr")
 capture_distance = 3.5
 particles = NodePath("GPUParticles3D")
 max_particle_size = 0.5
 mesh = NodePath("NGJChar/Armature/Skeleton3D/Cube")
 pivot = NodePath("NGJChar")
+player = NodePath("NGJChar/AnimationPlayer")
 light_mesh = NodePath("NGJChar/Armature/Skeleton3D/Cube_002")
 max_energy = 100.0
+emission_strength = 25.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1155193798]
+visible = false
 shape = SubResource("SphereShape3D_pjqsp")
 
 [node name="GPUParticles3D" type="GPUParticles3D" parent="." unique_id=1653837333]
+visible = false
 emitting = false
 amount = 25
 lifetime = 2.5
 process_material = SubResource("ParticleProcessMaterial_3ben2")
 draw_pass_1 = SubResource("QuadMesh_gfqqj")
 
-[node name="NGJChar" parent="." unique_id=1869355630 instance=ExtResource("3_qx362")]
-transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.75, 0)
+[node name="NGJChar" parent="." unique_id=1833003461 instance=ExtResource("3_qx362")]
+transform = Transform3D(-0.25, 0, -2.1855694e-08, 0, 0.25, 0, 2.1855694e-08, 0, -0.25, 0, -0.75, 0)
 
-[node name="Cube" parent="NGJChar/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1869355630, 1817462591) index="0" unique_id=1509947773]
+[node name="Skeleton3D" parent="NGJChar/Armature" parent_id_path=PackedInt32Array(1833003461, 735039246) index="0" unique_id=1138849664]
+bones/0/position = Vector3(0, 0.13240449, 0)
+bones/0/rotation = Quaternion(-2.9802326e-08, 1.1920928e-07, -2.5243543e-29, 1)
+bones/2/rotation = Quaternion(-3.00967e-08, 7.510149e-08, -0.48888224, 0.87234986)
+bones/4/rotation = Quaternion(-7.112619e-08, 2.912057e-09, 0.4644209, 0.8856146)
+bones/6/rotation = Quaternion(-3.5527103e-15, 0, -4.038968e-28, 1)
+bones/8/rotation = Quaternion(-0.7071068, -2.6692543e-08, 2.6692543e-08, 0.7071068)
+bones/10/rotation = Quaternion(-0.7071068, 2.6692543e-08, -2.6692543e-08, 0.7071068)
+
+[node name="Cube" parent="NGJChar/Armature/Skeleton3D" index="0" unique_id=1822437049]
 material_overlay = ExtResource("4_uolsq")
 
-[node name="Cube_001" parent="NGJChar/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1869355630, 1817462591) index="1" unique_id=297093144]
+[node name="Cube_001" parent="NGJChar/Armature/Skeleton3D" index="1" unique_id=112800663]
 material_overlay = ExtResource("4_uolsq")
 
-[node name="Cube_002" parent="NGJChar/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1869355630, 1817462591) index="2" unique_id=2022303941]
+[node name="Cube_002" parent="NGJChar/Armature/Skeleton3D" index="2" unique_id=41737435]
 surface_material_override/0 = SubResource("StandardMaterial3D_uolsq")
+
+[node name="AnimationPlayer" parent="NGJChar" index="1" unique_id=1572350828]
+blend_times = [&"Walk", &"uwu", 0.5, &"uwu", &"Walk", 0.5]
 
 [editable path="NGJChar"]

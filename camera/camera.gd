@@ -19,6 +19,9 @@ enum PROCESS_MODE {
 
 @onready var camera: Camera3D = $Camera3D
 
+func take_camera(node: Node3D) -> void:
+	target = node
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if processing_mode == PROCESS_MODE.PROCESS:

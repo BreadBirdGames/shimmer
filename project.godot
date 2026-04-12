@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 SoulsManager="*uid://brm5pcles84fv"
 MusicPlayer="*uid://cqhe0pl43we08"
+OurCamera="*uid://b41hth24u70h2"
 
 [debug_draw_3d]
 
