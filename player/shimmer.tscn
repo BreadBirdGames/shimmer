@@ -36,7 +36,7 @@ emission_energy_multiplier = 16.0
 
 [node name="CharacterBody3D" type="CharacterBody3D" unique_id=1720943480 node_paths=PackedStringArray("particles", "mesh", "pivot", "player", "light_mesh")]
 script = ExtResource("1_hpjkr")
-capture_distance = 3.5
+capture_distance = 1.5
 particles = NodePath("GPUParticles3D")
 max_particle_size = 0.5
 mesh = NodePath("NGJChar/Armature/Skeleton3D/Cube")

@@ -6,12 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://cs37n8g3l5tyt" path="res://souls/soul.tscn" id="3_apdja"]
 [ext_resource type="Texture2D" uid="uid://exfojbejuy1k" path="res://sprites/wasd_keys.png" id="3_m6uyu"]
 [ext_resource type="PackedScene" uid="uid://cgq0ocpl13ts" path="res://souls/last_soul.tscn" id="4_1fa6l"]
-[ext_resource type="Texture2D" uid="uid://dcrj5g7r0wan8" path="res://sprites/e_key.png" id="4_8phrj"]
 [ext_resource type="Texture2D" uid="uid://d3047qb1d348w" path="res://sprites/souls/breakup_01.png" id="4_y5kgl"]
 [ext_resource type="Texture2D" uid="uid://giq71fpggywc" path="res://sprites/souls/breakup_02.png" id="5_igkch"]
 [ext_resource type="Texture2D" uid="uid://d356sn5usr0qx" path="res://sprites/souls/death_01.png" id="5_kxmk1"]
 [ext_resource type="Texture2D" uid="uid://p3dij5rjvds1" path="res://sprites/souls/death_02.png" id="6_m6uyu"]
 [ext_resource type="Shader" uid="uid://cey276pjtsjid" path="res://player/sketchy_outline.gdshader" id="6_okqpn"]
+[ext_resource type="Texture2D" uid="uid://bvl25d658ab2f" path="res://sprites/souls/lonely_01.png" id="7_okqpn"]
+[ext_resource type="Texture2D" uid="uid://bpmx6xeufkyb0" path="res://sprites/souls/lonely_02.png" id="8_tq255"]
+[ext_resource type="Texture2D" uid="uid://vwcqt380w0vr" path="res://sprites/souls/lonely_03.png" id="9_4pjxh"]
 
 [sub_resource type="Animation" id="Animation_igkch"]
 resource_name = "Ending"
@@ -235,13 +237,12 @@ emission_energy_multiplier = 16.0
 height = 1.0
 radius = 3.0
 
-[node name="Game" type="Node3D" unique_id=1715666785 node_paths=PackedStringArray("center_hitbox", "blackhole_box", "animator", "wasd_keys", "e_key")]
+[node name="Game" type="Node3D" unique_id=1715666785 node_paths=PackedStringArray("center_hitbox", "blackhole_box", "animator", "wasd_keys")]
 script = ExtResource("1_y5kgl")
 center_hitbox = NodePath("Area3D")
 blackhole_box = NodePath("BlackHolePoint")
 animator = NodePath("AnimationPlayer")
 wasd_keys = NodePath("CanvasLayer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer/TextureRect")
-e_key = NodePath("CanvasLayer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/TextureRect2")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=671785485]
 libraries/ = SubResource("AnimationLibrary_8qo6o")
@@ -317,34 +318,18 @@ size_flags_vertical = 3
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/HBoxContainer2/MarginContainer/VBoxContainer" unique_id=209340464]
 layout_mode = 2
 
+[node name="Spacer" type="Control" parent="CanvasLayer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2035119784]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1584860838]
 layout_mode = 2
 size_flags_horizontal = 3
 texture = ExtResource("3_m6uyu")
 expand_mode = 5
 
-[node name="Spacer" type="Control" parent="CanvasLayer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2035119784]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1364270896]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="Spacer" type="Control" parent="CanvasLayer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=102752026]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=1827100856]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-texture = ExtResource("4_8phrj")
-expand_mode = 5
-
-[node name="Spacer2" type="Control" parent="CanvasLayer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer" unique_id=675891839]
+[node name="Spacer2" type="Control" parent="CanvasLayer/HBoxContainer2/MarginContainer/VBoxContainer/HBoxContainer" unique_id=2070608420]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -383,6 +368,7 @@ transform = Transform3D(1, 0, 0, 0, 0.054078843, 0.99853665, 0, -0.99853665, 0.0
 
 [node name="Soul" parent="Souls" unique_id=455303822 instance=ExtResource("3_apdja")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -12.5)
+story_textures = Array[Texture2D]([ExtResource("7_okqpn"), ExtResource("8_tq255"), ExtResource("9_4pjxh")])
 
 [node name="Soul2" parent="Souls" unique_id=104040160 instance=ExtResource("3_apdja")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -12.5)

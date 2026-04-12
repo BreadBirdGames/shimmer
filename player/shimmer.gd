@@ -129,12 +129,10 @@ func regular_update(delta: float) -> void:
 		soul_pos = Vector3.ZERO
 	else:
 		soul_pos = soul.global_position
-		if soul.can_suck() && Input.is_action_pressed("shimmer"):
-			var soul_dist: float = global_position.distance_to(soul_pos)
-			if soul_dist < capture_distance:
-				# Emit!
-				target_energy -= soul.suck()
-				interacting = true
-		else:
-			particle_mesh.size = Vector2.ONE * min_particle_size
+		var soul_dist: float = global_position.distance_to(soul_pos)
+		if soul.can_suck() && soul_dist < capture_distance:
+			# Emit!
+			target_energy -= soul.suck()
+			interacting = true
+	particle_mesh.size = Vector2.ONE * min_particle_size
 	particle_material.direction = (soul_pos - global_position).normalized() * particle_strength	 
