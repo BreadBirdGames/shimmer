@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://dhe8pw8ikv6wj"
-path="res://.godot/imported/NGJChar1.blend-0ada05866d80a7aa2c0445da9c846b8b.scn"
+path="res://.godot/imported/NGJChar.blend-08a3bd6418bdea8020569542c8ff3569.scn"
 
 [deps]
 
-source_file="res://sprites/NGJChar1.blend"
-dest_files=["res://.godot/imported/NGJChar1.blend-0ada05866d80a7aa2c0445da9c846b8b.scn"]
+source_file="res://sprites/NGJChar.blend"
+dest_files=["res://.godot/imported/NGJChar.blend-08a3bd6418bdea8020569542c8ff3569.scn"]
 
 [params]
 

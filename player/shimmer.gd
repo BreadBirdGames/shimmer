@@ -9,6 +9,9 @@ signal reached_trapper
 @export var min_particle_size: float = 0.1
 @export var max_particle_size: float = 0.75
 @export var mesh: MeshInstance3D
+@export var pivot: Node3D
+
+@export var light_mesh: MeshInstance3D
 @export var max_energy: float = 20
 @export var emission_strength: float = 10
 
@@ -19,13 +22,14 @@ const JUMP_VELOCITY: float = 4.5
 
 var souls_detected: int = 0
 var material: StandardMaterial3D
+var light_material: StandardMaterial3D
 
 var _energy: float = 100
 var energy: float = 100 : 
 	get:
 		return _energy
 	set(value):
-		material.emission_energy_multiplier = energy/max_energy * emission_strength
+		light_material.emission_energy_multiplier = energy/max_energy * emission_strength
 		_energy = value
 
 var trapper: Node3D = null
@@ -34,28 +38,38 @@ func _ready() -> void:
 	particle_material = particles.process_material as ParticleProcessMaterial
 	particle_mesh = particles.draw_pass_1 as QuadMesh
 	material = mesh.get_surface_override_material(0)
+	light_material = light_mesh.get_surface_override_material(0)
 	
 	energy = energy # To update progress!
 
 func trap_to(target: Node3D) -> void:
 	trapper = target
-	print(trapper)
 
 func _physics_process(delta: float) -> void:
 	if trapper != null:
-		global_position = global_position.lerp(trapper.global_position, delta * 0.35)
-		if global_position.is_equal_approx(trapper.global_position):
-			reached_trapper.emit()
-		return # We only wanna interpolate here
-	
+		trap_update(delta)
+	elif false: # replace with condition
+		interaction_update(delta)
+	else:
+		regular_update(delta)
+
+func trap_update(delta: float) -> void:
+	global_position = global_position.lerp(trapper.global_position, delta * 0.35)
+	if global_position.is_equal_approx(trapper.global_position):
+		reached_trapper.emit()
+
+func interaction_update(_delta: float) -> void:
+	pass
+
+func regular_update(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
 	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if direction:
-		mesh.rotation.y = rotate_toward(
-			mesh.rotation.y,
+		pivot.rotation.y = rotate_toward(
+			pivot.rotation.y,
 			Vector2(direction.x, -direction.z).angle() + deg_to_rad(90),
 			delta * 8
 		)
@@ -84,8 +98,7 @@ func _physics_process(delta: float) -> void:
 				var soul_dist: float = global_position.distance_to(soul_pos)
 				if soul_dist < capture_distance:
 					# Emit!
-					soul.suck(0.05)
-					energy -= 0.05
+					energy -= soul.suck()
 					has_sucked = true
 				particle_mesh.size = Vector2.ONE * clampf(max_particle_size - (soul_dist / capture_distance) * (max_particle_size - min_particle_size), min_particle_size, max_particle_size)
 		
