@@ -109,19 +109,18 @@ processing_mode = 1
 transform = Transform3D(1, 0, 0, 0, 0.054078843, 0.99853665, 0, -0.99853665, 0.054078843, 0, 0, 0)
 
 [node name="Souls" type="Node3D" parent="." unique_id=1963288317]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.5)
 
 [node name="Soul" parent="Souls" unique_id=68226887 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.5, 0, -14.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5, 0, -12.5)
 
 [node name="Soul2" parent="Souls" unique_id=455303822 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5.5, 0, -14.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -12.5)
 
 [node name="Soul3" parent="Souls" unique_id=403129838 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.5, 0, -9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -7.5)
 
 [node name="Soul4" parent="Souls" unique_id=295933348 instance=ExtResource("3_apdja")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8.5, 0, -9.5)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -7.5)
 
 [node name="LastSoul" parent="." unique_id=1730216618 instance=ExtResource("4_1fa6l")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, -35, 0)
