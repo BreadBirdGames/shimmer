@@ -73,7 +73,8 @@ func trap_update(delta: float) -> void:
 		trapper = null
 
 func interaction_update(_delta: float) -> void:
-	pass
+	if player.current_animation != "uwu":
+		player.play("uwu")
 
 func regular_update(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.

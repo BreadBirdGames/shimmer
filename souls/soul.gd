@@ -32,6 +32,9 @@ func can_suck() -> bool:
 func suck() -> float:
 	energy = max_energy
 	story.show()
+	OurCamera.screen_position = Vector2(0.125, 0.75)
+	OurCamera.angle_x = 0
+	OurCamera.take_camera(self)
 	
 	return max_energy - energy
 
@@ -53,16 +56,14 @@ func story_crement(dir: int ) -> void:
 	else:
 		left_button.disabled = false
 	
-	if story_index == story_textures.size() - 1:
-		right_button.text = "Continue"
-	else:
-		right_button.text = "Right"
-	
 	if story_index == story_textures.size(): # OVERFLOW!
 		var emission_tween: Tween = get_tree().create_tween()
 		emission_tween.tween_property(material, "emission_energy_multiplier", energy/max_energy * emission_strength, 5)
 		story.hide()
 		SoulsManager.register_finished(self)
+		OurCamera.give_camera(self)
+		OurCamera.screen_position = Vector2.ONE/2
+		OurCamera.angle_x = -45
 		return # And we stop
 	
 	story_label.text = str(story_index + 1) + "/" + str(story_textures.size())

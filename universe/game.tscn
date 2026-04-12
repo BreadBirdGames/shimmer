@@ -2,20 +2,35 @@
 
 [ext_resource type="Script" uid="uid://btpg85mwjn3it" path="res://universe/game.gd" id="1_y5kgl"]
 [ext_resource type="PackedScene" uid="uid://bo35uqlt2yc64" path="res://player/shimmer.tscn" id="2_1fa6l"]
+[ext_resource type="Texture2D" uid="uid://3kafc2f0tox7" path="res://sprites/title_card.png" id="2_8qo6o"]
 [ext_resource type="PackedScene" uid="uid://cs37n8g3l5tyt" path="res://souls/soul.tscn" id="3_apdja"]
 [ext_resource type="PackedScene" uid="uid://cgq0ocpl13ts" path="res://souls/last_soul.tscn" id="4_1fa6l"]
+[ext_resource type="Texture2D" uid="uid://d3047qb1d348w" path="res://sprites/souls/breakup_01.png" id="4_y5kgl"]
+[ext_resource type="Texture2D" uid="uid://giq71fpggywc" path="res://sprites/souls/breakup_02.png" id="5_igkch"]
 
 [sub_resource type="Animation" id="Animation_igkch"]
 resource_name = "Ending"
-length = 10.0
+length = 6.0
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/VBoxContainer/Label:modulate")
-tracks/0/interp = 1
+tracks/0/path = NodePath("Souls:position")
+tracks/0/interp = 2
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(9, 10),
+"times": PackedFloat32Array(0, 5.0000005),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, -21, 15)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/HBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(5, 6),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
@@ -26,10 +41,22 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/VBoxContainer/Label:modulate")
+tracks/0/path = NodePath("Souls:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("CanvasLayer/HBoxContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
@@ -65,32 +92,44 @@ libraries/ = SubResource("AnimationLibrary_8qo6o")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=306304584]
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer" unique_id=1050957832]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer" unique_id=730631028]
+modulate = Color(1, 1, 1, 0)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Spacer" type="Control" parent="CanvasLayer/VBoxContainer" unique_id=1572785760]
+[node name="Spacer" type="Control" parent="CanvasLayer/HBoxContainer" unique_id=1005790405]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="CanvasLayer/VBoxContainer" unique_id=1812941663]
-modulate = Color(1, 1, 1, 0)
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/HBoxContainer" unique_id=1050957832]
 layout_mode = 2
-size_flags_vertical = 6
-theme_override_font_sizes/font_size = 128
-text = "SHIMMER"
-horizontal_alignment = 1
+size_flags_horizontal = 3
 
-[node name="Spacer2" type="Control" parent="CanvasLayer/VBoxContainer" unique_id=798565397]
+[node name="Spacer" type="Control" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=1572785760]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Spacer3" type="Control" parent="CanvasLayer/VBoxContainer" unique_id=1875900752]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=745704466]
+layout_mode = 2
+texture = ExtResource("2_8qo6o")
+expand_mode = 5
+
+[node name="Spacer2" type="Control" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=798565397]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Spacer3" type="Control" parent="CanvasLayer/HBoxContainer/VBoxContainer" unique_id=1875900752]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Spacer2" type="Control" parent="CanvasLayer/HBoxContainer" unique_id=2001792960]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
@@ -113,6 +152,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -5, 0, -12.5)
 
 [node name="Soul3" parent="Souls" unique_id=596583388 instance=ExtResource("3_apdja")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 0, -7.5)
+story_textures = Array[Texture2D]([ExtResource("4_y5kgl"), ExtResource("5_igkch")])
 
 [node name="Soul4" parent="Souls" unique_id=1573846884 instance=ExtResource("3_apdja")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -7.5)
@@ -120,14 +160,14 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, -7.5)
 [node name="LastSoul" parent="." unique_id=1730216618 instance=ExtResource("4_1fa6l")]
 transform = Transform3D(5, 0, 0, 0, 5, 0, 0, 0, 5, 0, -35, 0)
 
+[node name="BlackHolePoint" type="Node3D" parent="." unique_id=101921437]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -21, 18)
+
 [node name="Area3D" type="Area3D" parent="." unique_id=250520109]
 monitoring = false
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D" unique_id=984892321]
 shape = SubResource("CylinderShape3D_y5kgl")
-
-[node name="BlackHolePoint" type="Node3D" parent="." unique_id=101921437]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -21, 18)
 
 [connection signal="reached_trapper" from="Shimmer" to="." method="_on_shimmer_reached_trapper"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_area_3d_body_entered"]

@@ -5,7 +5,6 @@ enum PROCESS_MODE {
 	PHYSICS
 }
 
-@export var target: Node3D
 @export var speed: float
 ## Where on the screen the target should be held, in normalized
 ## coordinates. (0, 0) is top-left, (1, 1) is bottom-right, (0.5, 0.5)
@@ -16,11 +15,17 @@ enum PROCESS_MODE {
 ## letting the scene's own camera offset dictate zoom.
 @export var distance: float = 0.0
 @export var processing_mode: PROCESS_MODE
+@export var angle_x: float = -45
 
 @onready var camera: Camera3D = $Camera3D
 
+var targets: Array[Node3D]
+
 func take_camera(node: Node3D) -> void:
-	target = node
+	targets.append(node)
+
+func give_camera(node: Node3D) -> void:
+	targets.erase(node)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -32,10 +37,11 @@ func _physics_process(delta: float) -> void:
 		update(delta)
 
 func update(delta: float) -> void:
-	if target == null or camera == null:
+	if targets.size() < 1 or camera == null:
 		return
 	var desired := _desired_pivot_position()
 	global_position = global_position.lerp(desired, speed * delta)
+	camera.rotation.x = lerpf(camera.rotation.x, deg_to_rad(angle_x), delta * speed)
 
 # Returns the pivot position that would place `target` at `screen_position`
 # on the screen, assuming the camera's orientation is unchanged.
@@ -47,7 +53,7 @@ func _desired_pivot_position() -> Vector3:
 	# position, so it is stable as we move the pivot.
 	var ray_normal := camera.project_ray_normal(pixel_pos)
 	var cam_pos := camera.global_position
-	var cam_to_target := target.global_position - cam_pos
+	var cam_to_target := targets[-1].global_position - cam_pos
 	# Use the required distance if one is set, otherwise preserve
 	# whatever distance the camera currently has from the target.
 	var effective_distance := distance if distance > 0.0 else cam_to_target.length()

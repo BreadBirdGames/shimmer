@@ -1,7 +1,8 @@
 [gd_scene format=3 uid="uid://5hsr4mp88xrt"]
 
-[ext_resource type="Script" path="res://main.gd" id="1_glv2v"]
+[ext_resource type="Script" uid="uid://dma2gqyhnkfee" path="res://main.gd" id="1_glv2v"]
 [ext_resource type="VideoStream" uid="uid://c4xkv8p7y3ufn" path="res://video/Dream.ogv" id="2_uu6xs"]
+[ext_resource type="Texture2D" uid="uid://3kafc2f0tox7" path="res://sprites/title_card.png" id="3_r0du0"]
 
 [node name="Main menu" type="Control" unique_id=1562080317]
 layout_mode = 3
@@ -42,11 +43,11 @@ grow_vertical = 2
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer" unique_id=540621499]
 layout_mode = 2
 
-[node name="Label" type="Label" parent="CenterContainer/VBoxContainer" unique_id=925871728]
+[node name="TextureRect" type="TextureRect" parent="CenterContainer/VBoxContainer" unique_id=256680225]
+custom_minimum_size = Vector2(1000, 0)
 layout_mode = 2
-theme_override_font_sizes/font_size = 128
-text = "SHIMMER"
-horizontal_alignment = 1
+texture = ExtResource("3_r0du0")
+expand_mode = 5
 
 [node name="start" type="Button" parent="CenterContainer/VBoxContainer" unique_id=1085845238]
 layout_mode = 2

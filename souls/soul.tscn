@@ -4,8 +4,12 @@
 [ext_resource type="Texture2D" uid="uid://bhtwk5s5uuplh" path="res://icon.svg" id="2_a4mms"]
 [ext_resource type="PackedScene" uid="uid://dhe8pw8ikv6wj" path="res://sprites/NGJChar.blend" id="3_c0kne"]
 [ext_resource type="Material" uid="uid://b4gt635hh6evi" path="res://player/SketchyOutline.tres" id="4_rcggk"]
+[ext_resource type="Theme" uid="uid://mhvfbumq5nd6" path="res://theme.tres" id="5_rcggk"]
+[ext_resource type="Texture2D" uid="uid://mic5s4hef2h1" path="res://sprites/arrow_left.png" id="6_c4bgn"]
+[ext_resource type="Texture2D" uid="uid://c10ee0hgr6ww0" path="res://sprites/arrow_right.png" id="7_kijsf"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_irpvy"]
+radius = 0.25
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_c4bgn"]
 emission_enabled = true
@@ -64,6 +68,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("5_rcggk")
 theme_override_constants/margin_left = 455
 theme_override_constants/margin_top = 50
 theme_override_constants/margin_right = 50
@@ -87,6 +92,8 @@ layout_mode = 2
 [node name="TextureRect" type="TextureRect" parent="CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=5219668]
 layout_mode = 2
 size_flags_vertical = 3
+expand_mode = 1
+stretch_mode = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" unique_id=1444936649]
 layout_mode = 2
@@ -95,7 +102,9 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
-text = "Left"
+icon = ExtResource("6_c4bgn")
+icon_alignment = 1
+expand_icon = true
 
 [node name="Label" type="Label" parent="CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer" unique_id=1749550306]
 layout_mode = 2
@@ -108,7 +117,9 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_font_sizes/font_size = 64
-text = "Right"
+icon = ExtResource("7_kijsf")
+icon_alignment = 1
+expand_icon = true
 
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonLeft" to="." method="_on_button_left_pressed"]
 [connection signal="pressed" from="CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonRight" to="." method="_on_button_right_pressed"]
