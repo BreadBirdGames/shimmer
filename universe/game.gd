@@ -6,6 +6,8 @@ extends Node3D
 
 @export var wasd_keys: Control
 
+@export var last_soul: Node3D
+
 func _ready() -> void:
 	SoulsManager.souls_changed.connect(self.souls_changed)
 
@@ -25,6 +27,10 @@ func _on_area_3d_body_entered(body: Node3D) -> void:
 	if body is Shimmer:
 		var shimmer: Shimmer = body as Shimmer
 		shimmer.trap_to(blackhole_box)
+
+func souls_emit() -> void:
+	for soul in SoulsManager.souls:
+		soul.target_last_soul(last_soul)
 
 func _on_shimmer_reached_trapper() -> void:
 	animator.play("Ending")

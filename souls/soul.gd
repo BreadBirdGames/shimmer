@@ -15,12 +15,18 @@ var material: StandardMaterial3D
 @export var story: CanvasLayer
 @export var player: AnimationPlayer
 
+@export var particles: GPUParticles3D
+var particle_material: ParticleProcessMaterial
+
 var story_index: int = 0
 
 func _ready() -> void:
 	SoulsManager.register_soul(self)
 	material = mesh.mesh.surface_get_material(0)
 	material.emission_energy_multiplier = energy/max_energy * emission_strength
+	
+	particle_material = particles.process_material as ParticleProcessMaterial
+	particles.emitting = false
 	
 	player.play("uwu")
 	story.hide()
@@ -39,12 +45,9 @@ func suck() -> float:
 	
 	return max_energy - energy
 
-#func suck(amount: float) -> void:
-#	energy += amount
-#	material.emission_energy_multiplier = energy/max_energy * emission_strength
-#	
-#	if energy >= max_energy:
-#		SoulsManager.register_finished(self)
+func target_last_soul(last_soul: Node3D) -> void:
+	particle_material.direction = (last_soul.global_position - global_position).normalized() * 10
+	particles.emitting = true
 
 func story_crement(dir: int ) -> void:
 	story_index += dir

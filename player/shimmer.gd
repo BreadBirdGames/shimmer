@@ -57,7 +57,7 @@ func trap_to(target: Node3D) -> void:
 func _physics_process(delta: float) -> void:
 	if trapper != null:
 		trap_update(delta)
-	elif interacting: # replace with condition
+	elif interacting:
 		interaction_update(delta)
 	else:
 		regular_update(delta)
@@ -102,8 +102,6 @@ func interaction_update(delta: float) -> void:
 		particle_material.direction = (last_soul.global_position - global_position).normalized() * particle_strength
 
 func regular_update(delta: float) -> void:
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
 	var input_dir := Input.get_vector("move_left", "move_right", "move_up", "move_down")
 	var direction := (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
