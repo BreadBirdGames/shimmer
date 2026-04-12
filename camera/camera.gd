@@ -6,13 +6,7 @@ enum PROCESS_MODE {
 }
 
 @export var speed: float
-## Where on the screen the target should be held, in normalized
-## coordinates. (0, 0) is top-left, (1, 1) is bottom-right, (0.5, 0.5)
-## is center.
 @export var screen_position: Vector2 = Vector2(0.5, 0.5)
-## Required distance (in world units) between the camera and the target.
-## When `<= 0` the current camera-to-target distance is preserved instead,
-## letting the scene's own camera offset dictate zoom.
 @export var distance: float = 0.0
 @export var processing_mode: PROCESS_MODE
 @export var angle_x: float = -45
@@ -27,7 +21,6 @@ func take_camera(node: Node3D) -> void:
 func give_camera(node: Node3D) -> void:
 	targets.erase(node)
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
 	if processing_mode == PROCESS_MODE.PROCESS:
 		update(delta)
@@ -43,25 +36,18 @@ func update(delta: float) -> void:
 	global_position = global_position.lerp(desired, speed * delta)
 	camera.rotation.x = lerpf(camera.rotation.x, deg_to_rad(angle_x), delta * speed)
 
-# Returns the pivot position that would place `target` at `screen_position`
-# on the screen, assuming the camera's orientation is unchanged.
+func _midpoint() -> Vector3:
+	var center := Vector3.ZERO
+	for target in targets:
+		center += target.global_position
+	return center / targets.size()
+
 func _desired_pivot_position() -> Vector3:
 	var viewport_size := camera.get_viewport().get_visible_rect().size
 	var pixel_pos := screen_position * viewport_size
-	# Ray direction in world space for the desired screen pixel. This
-	# only depends on the camera's orientation and projection, not its
-	# position, so it is stable as we move the pivot.
 	var ray_normal := camera.project_ray_normal(pixel_pos)
 	var cam_pos := camera.global_position
-	var cam_to_target := targets[-1].global_position - cam_pos
-	# Use the required distance if one is set, otherwise preserve
-	# whatever distance the camera currently has from the target.
+	var cam_to_target := _midpoint() - cam_pos
 	var effective_distance := distance if distance > 0.0 else cam_to_target.length()
-	# The camera is a child of the pivot, so translating the pivot by
-	# `delta` translates the camera by the same amount. We want the new
-	# vector from camera to target to align with `ray_normal` at
-	# `effective_distance`, so:
-	#     (cam_to_target) - delta = ray_normal * effective_distance
-	#     delta = cam_to_target - ray_normal * effective_distance
 	var delta_offset := cam_to_target - ray_normal * effective_distance
 	return global_position + delta_offset

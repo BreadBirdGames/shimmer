@@ -3,6 +3,7 @@ extends Node
 signal souls_changed(souls_amount: int)
 
 var souls: Array[Soul]
+var player: Shimmer
 
 func register_soul(soul: Soul) -> void:
 	souls.append(soul)

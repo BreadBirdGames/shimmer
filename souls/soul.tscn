@@ -61,6 +61,7 @@ radius = 1.5
 radius = 0.75
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2013422828]
+visible = false
 
 [node name="MarginContainer" type="MarginContainer" parent="CanvasLayer" unique_id=1652121277]
 anchors_preset = 15

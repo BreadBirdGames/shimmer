@@ -16,6 +16,9 @@ var particle_mesh: QuadMesh
 @export var max_energy: float = 20
 @export var emission_strength: float = 10
 
+# EXTREMELY hacky...
+@export var last_soul: Node3D
+
 var particle_material: ParticleProcessMaterial
 
 const SPEED: float = 5.0
@@ -26,6 +29,7 @@ var material: StandardMaterial3D
 var light_material: StandardMaterial3D
 var interacting: bool = false
 
+var target_energy: float = 100
 var _energy: float = 100
 var energy: float = 100 : 
 	get:
@@ -37,6 +41,7 @@ var energy: float = 100 :
 var trapper: Node3D = null
 
 func _ready() -> void:
+	SoulsManager.player = self
 	OurCamera.take_camera(self)
 	
 	particle_material = particles.process_material as ParticleProcessMaterial
@@ -57,6 +62,9 @@ func _physics_process(delta: float) -> void:
 	else:
 		regular_update(delta)
 	
+	if energy != target_energy:
+		energy = lerpf(energy, target_energy, delta)
+	
 	if velocity.length() > 0.1:
 		if player.current_animation != "Walk":
 			player.play("Walk")
@@ -64,17 +72,34 @@ func _physics_process(delta: float) -> void:
 		if player.current_animation != "uwu":
 			player.play("uwu")
 
+func reset_pose(delta: float) -> void:
+	if player.current_animation != "uwu":
+		player.play("uwu")
+	pivot.rotation.y = rotate_toward(
+			pivot.rotation.y,
+			deg_to_rad(180),
+			delta * 8
+		)
+
 func trap_update(delta: float) -> void:
 	global_position = global_position.lerp(trapper.global_position, delta * 0.35)
+	
+	reset_pose(delta)
 	
 	if abs(global_position - trapper.global_position).length() < 3.5: # kinda high, we know
 		reached_trapper.emit()
 		interacting = true
 		trapper = null
 
-func interaction_update(_delta: float) -> void:
-	if player.current_animation != "uwu":
-		player.play("uwu")
+func interaction_update(delta: float) -> void:
+	reset_pose(delta)
+	
+	var soul: Soul = SoulsManager.get_closest_soul(global_position)
+	particle_mesh.size = Vector2.ONE * max_particle_size
+	if soul != null:
+		particle_material.direction = (soul.global_position - global_position).normalized() * particle_strength
+	else:
+		particle_material.direction = (last_soul.global_position - global_position).normalized() * particle_strength
 
 func regular_update(delta: float) -> void:
 	# Get the input direction and handle the movement/deceleration.
@@ -94,33 +119,22 @@ func regular_update(delta: float) -> void:
 	else:
 		velocity.x = move_toward(velocity.x, 0, SPEED)
 		velocity.z = move_toward(velocity.z, 0, SPEED)
-
+	
 	move_and_slide()
 	
-	if Input.is_action_pressed("shimmer"):
-		particles.emitting = true
-		
-		var soul := SoulsManager.get_closest_valid_soul(global_position)
-		
-		var has_sucked: bool = false
-		
-		var soul_pos: Vector3
-		if soul == null:
-			soul_pos = Vector3.ZERO
-		else:
-			soul_pos = soul.global_position
-			if soul.can_suck():
-				var soul_dist: float = global_position.distance_to(soul_pos)
-				if soul_dist < capture_distance:
-					# Emit!
-					energy -= soul.suck()
-					has_sucked = true
-				particle_mesh.size = Vector2.ONE * clampf(max_particle_size - (soul_dist / capture_distance) * (max_particle_size - min_particle_size), min_particle_size, max_particle_size)
-		
-		if !has_sucked:
-			energy -= 0.01
-			particle_mesh.size = Vector2.ONE * min_particle_size
-		
-		particle_material.direction = (soul_pos - global_position).normalized() * particle_strength	 
+	var soul := SoulsManager.get_closest_valid_soul(global_position)
+	var soul_pos: Vector3
+	
+	if soul == null:
+		soul_pos = Vector3.ZERO
 	else:
-		particles.emitting = false
+		soul_pos = soul.global_position
+		if soul.can_suck() && Input.is_action_pressed("shimmer"):
+			var soul_dist: float = global_position.distance_to(soul_pos)
+			if soul_dist < capture_distance:
+				# Emit!
+				target_energy -= soul.suck()
+				interacting = true
+		else:
+			particle_mesh.size = Vector2.ONE * min_particle_size
+	particle_material.direction = (soul_pos - global_position).normalized() * particle_strength	 

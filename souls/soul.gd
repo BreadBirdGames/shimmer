@@ -34,6 +34,7 @@ func suck() -> float:
 	story.show()
 	OurCamera.screen_position = Vector2(0.125, 0.75)
 	OurCamera.angle_x = 0
+	OurCamera.distance = 6
 	OurCamera.take_camera(self)
 	
 	return max_energy - energy
@@ -64,6 +65,8 @@ func story_crement(dir: int ) -> void:
 		OurCamera.give_camera(self)
 		OurCamera.screen_position = Vector2.ONE/2
 		OurCamera.angle_x = -45
+		OurCamera.distance = 4
+		SoulsManager.player.interacting = false
 		return # And we stop
 	
 	story_label.text = str(story_index + 1) + "/" + str(story_textures.size())
