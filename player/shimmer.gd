@@ -58,13 +58,15 @@ func _physics_process(delta: float) -> void:
 		regular_update(delta)
 	
 	if velocity.length() > 0.1:
-		player.play("walk")
+		if player.current_animation != "Walk":
+			player.play("Walk")
 	else:
-		player.play("uwu")
+		if player.current_animation != "uwu":
+			player.play("uwu")
 
 func trap_update(delta: float) -> void:
 	global_position = global_position.lerp(trapper.global_position, delta * 0.35)
-	print(abs(global_position - trapper.global_position).length())
+	
 	if abs(global_position - trapper.global_position).length() < 3.5: # kinda high, we know
 		reached_trapper.emit()
 		interacting = true

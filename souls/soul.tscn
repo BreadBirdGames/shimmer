@@ -12,28 +12,39 @@ emission_enabled = true
 emission = Color(1, 1, 1, 1)
 emission_energy_multiplier = 16.0
 
-[node name="Soul" type="StaticBody3D" unique_id=455303822 node_paths=PackedStringArray("mesh", "story_container", "story_label", "story")]
+[node name="Soul" type="StaticBody3D" unique_id=455303822 node_paths=PackedStringArray("mesh", "story_container", "story_label", "left_button", "right_button", "story", "player")]
 script = ExtResource("1_1epsl")
 mesh = NodePath("NGJChar/Armature/Skeleton3D/Cube")
-emission_strength = 2.5
 story_textures = Array[Texture2D]([ExtResource("2_a4mms"), ExtResource("2_a4mms")])
 story_container = NodePath("CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/TextureRect")
 story_label = NodePath("CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/Label")
+left_button = NodePath("CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonLeft")
+right_button = NodePath("CanvasLayer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/ButtonRight")
 story = NodePath("CanvasLayer")
+player = NodePath("NGJChar/AnimationPlayer")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1751181807]
 shape = SubResource("SphereShape3D_irpvy")
 
-[node name="NGJChar" parent="." unique_id=1869355630 instance=ExtResource("3_c0kne")]
+[node name="NGJChar" parent="." unique_id=1833003461 instance=ExtResource("3_c0kne")]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, -0.75, 0)
 
-[node name="Cube" parent="NGJChar/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1869355630, 1817462591) index="0" unique_id=1509947773]
+[node name="Skeleton3D" parent="NGJChar/Armature" parent_id_path=PackedInt32Array(1833003461, 735039246) index="0" unique_id=1138849664]
+bones/0/position = Vector3(-3.047763e-09, 0.134203, 0)
+bones/0/rotation = Quaternion(-3.381634e-08, 1.1710689e-07, 0.03410851, 0.99941814)
+bones/2/rotation = Quaternion(-0.32984498, 0.49834406, -0.45939693, 0.65712243)
+bones/4/rotation = Quaternion(0.32013723, 0.5703479, 0.33126938, 0.6800559)
+bones/6/rotation = Quaternion(-0.063942194, 0.0043695746, -1.3123706e-08, 0.99794406)
+bones/8/rotation = Quaternion(-0.6261572, 0.32852253, 0.3285226, 0.62615734)
+bones/10/rotation = Quaternion(-0.6138956, 0.35090202, 0.350902, 0.6138956)
+
+[node name="Cube" parent="NGJChar/Armature/Skeleton3D" index="0" unique_id=1822437049]
 material_overlay = ExtResource("4_rcggk")
 
-[node name="Cube_001" parent="NGJChar/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1869355630, 1817462591) index="1" unique_id=297093144]
+[node name="Cube_001" parent="NGJChar/Armature/Skeleton3D" index="1" unique_id=112800663]
 material_overlay = ExtResource("4_rcggk")
 
-[node name="Cube_002" parent="NGJChar/Armature/Skeleton3D" parent_id_path=PackedInt32Array(1869355630, 1817462591) index="2" unique_id=2022303941]
+[node name="Cube_002" parent="NGJChar/Armature/Skeleton3D" index="2" unique_id=41737435]
 surface_material_override/0 = SubResource("StandardMaterial3D_c4bgn")
 
 [node name="GPUParticlesAttractorSphere3D" type="GPUParticlesAttractorSphere3D" parent="." unique_id=644880137]

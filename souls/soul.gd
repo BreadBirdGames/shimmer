@@ -10,7 +10,10 @@ var material: StandardMaterial3D
 @export var story_textures: Array[Texture2D]
 @export var story_container: TextureRect
 @export var story_label: Label
+@export var left_button: Button
+@export var right_button: Button
 @export var story: CanvasLayer
+@export var player: AnimationPlayer
 
 var story_index: int = 0
 
@@ -19,6 +22,7 @@ func _ready() -> void:
 	material = mesh.mesh.surface_get_material(0)
 	material.emission_energy_multiplier = energy/max_energy * emission_strength
 	
+	player.play("uwu")
 	story.hide()
 	story_crement(0)
 
@@ -40,7 +44,26 @@ func suck() -> float:
 
 func story_crement(dir: int ) -> void:
 	story_index += dir
-	story_index = wrapi(story_index, 0, story_textures.size())
+	
+	if story_index < 0:
+		story_index = 0
+	
+	if story_index == 0:
+		left_button.disabled = true
+	else:
+		left_button.disabled = false
+	
+	if story_index == story_textures.size() - 1:
+		right_button.text = "Continue"
+	else:
+		right_button.text = "Right"
+	
+	if story_index == story_textures.size(): # OVERFLOW!
+		var emission_tween: Tween = get_tree().create_tween()
+		emission_tween.tween_property(material, "emission_energy_multiplier", energy/max_energy * emission_strength, 5)
+		story.hide()
+		SoulsManager.register_finished(self)
+		return # And we stop
 	
 	story_label.text = str(story_index + 1) + "/" + str(story_textures.size())
 	story_container.texture = story_textures[story_index]
